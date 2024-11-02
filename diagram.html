@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System Class Diagram</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 350px;
+            margin: 20px;
+            border: 1px solid #000;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .relationship, .explanation {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Class Diagram for School Management System</h1>
+
+<div class="container">
+    <!-- School Class -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">School</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>schoolName</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>address</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>addStudent()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>addTeacher()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>addClassroom()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Person Class (Abstract) -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Person (Abstract Base Class)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>age</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>gender</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>address</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>getDetails()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Student Class -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Student (Inherits from Person)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>studentID</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>grade</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>attendance</td>
+                <td>Double</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>attendClass()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>getGrades()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Teacher Class -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Teacher (Inherits from Person)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>teacherID</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>subject</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>salary</td>
+                <td>Double</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>assignGrades()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>takeAttendance()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Classroom Class -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Classroom</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>classID</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>grade</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>studentList</td>
+                <td>List&lt;Student&gt;</td>
+            </tr>
+            <tr>
+                <td>teacher</td>
+                <td>Teacher</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>addStudent()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>assignTeacher()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Subject Class -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Subject</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>subjectName</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>subjectCode</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td>teacher</td>
+                <td>Teacher</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>assignTeacher()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>getSubjectDetails()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Grade Class -->
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Attributes</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>student</td>
+                <td>Student</td>
+            </tr>
+            <tr>
+                <td>subject</td>
+                <td>Subject</td>
+            </tr>
+            <tr>
+                <td>gradeValue</td>
+                <td>String</td>
+            </tr>
+            <tr>
+                <td><strong>Methods</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>assignGrade()</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>updateGrade()</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="relationship">
+    <h2>Relationships:</h2>
+    <ul>
+        <li>A School has multiple Students, Teachers, and Classrooms.</li>
+        <li>A Classroom has one Teacher and multiple Students.</li>
+        <li>A Teacher teaches one or more Subjects.</li>
+        <li>A Student has multiple Grades (one for each Subject).</li>
+    </ul>
+</div>
+
+<div class="explanation">
+    <h2>Explanation:</h2>
+    <p>In this system, we use a base class <strong>Person</strong> to represent common attributes shared by <strong>Student</strong> and <strong>Teacher</strong>. The <strong>Student</strong> class inherits from <em>Person</em> and adds specific attributes like studentID and grade.</p>
+    <p>The <strong>Teacher</strong> class also inherits from <em>Person</em> and introduces its own attributes like teacherID and subject. Both <strong>Student</strong> and <strong>Teacher</strong> inherit the <code>getDetails()</code> method from the base class.</p>
+    <p>In Ruby, multiple inheritance isn't allowed, so shared behaviors like taking attendance are handled using <strong>modules</strong> (mixins). For example, the <code>Attendance</code> module can be included in both the <strong>Teacher</strong> and <strong>Classroom</strong> classes to allow them to handle attendance without duplicating code.</p>
+</div>
+
+</body>
+</html>
