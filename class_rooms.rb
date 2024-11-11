@@ -33,7 +33,7 @@ class ClassRooms < School
       puts "Student #{new_student[:name]} already exists in #{class_grade}."
     else
       File.open(file_path, 'a') do |class_file|
-        class_file.puts "#{new_student[:id]}, #{new_student[:name]}"
+        class_file.puts "#{new_student[:id]},#{new_student[:name]}"
       end
       puts "New student added: #{new_student[:name]}"
     end
@@ -85,8 +85,10 @@ class ClassRooms < School
   def teacher_check(class_name,teacher_found)
     
     temp_arr = []
+    
+    file_path = "classes/#{class_name}/class.txt"
 
-    File.foreach("#{class_name}.txt") do |line|
+    File.foreach(file_path) do |line|
 
        id,name = line.split(",").map(&:strip)
        temp_arr << {id: id,name:name}
@@ -104,7 +106,7 @@ class ClassRooms < School
 
     else
 
-        File.open("#{class_name}.txt", "w") do |file|
+        File.open(file_path, "w") do |file|
         file.puts "#{teacher_found[:id]},#{teacher_found[:name]}" 
         end
         puts "Teacher #{teacher_found[:name]} has been assigned to class #{class_name}"

@@ -15,10 +15,6 @@ class Teacher < Person
     # single responsibility principle | with examples 
   end 
 
-  def self.find_by_id(id)
-      # read teachers.txt file and find teacher with matching id
-  end
-
   def set_info
 
     print "Enter teacher name           : "
@@ -56,7 +52,7 @@ class Teacher < Person
   end
 
   def store_info
-    
+
     file_path = "teachers/teachers_data.txt"
     directory = File.dirname(file_path)
     FileUtils.mkdir_p directory 
@@ -180,11 +176,36 @@ class Teacher < Person
 
   end
   
+  def count_student_in_his_class
+   
+   
+   print 'Enter you class name : '
+  
+   class_name = gets.chomp
+
+   #authentication feature will be add soon 
+  
+   ids = []  # Array to store ids
+   file_path = "classes/#{class_name}/class.txt"
+   File.foreach(file_path) do |line|
+     id, name = line.split(",").map(&:strip)
+     ids << id  # Store only the id in the array
+   end
+   
+   student_count = ids.count { |s| s.start_with?("S")} + ids.count { |s| s.start_with?("F")}
+  
+   puts "Tottal Students in class : #{student_count}"
+
+  end
+  
   def take_attendance
     
   end
+
 end
 
-#teacher = Teacher.new("name", "date_of_birth", "age","teacher_id")
 
-#teacher.assign_grade
+
+teacher = Teacher.new("name", "date_of_birth", "age","teacher_id")
+
+teacher.count_student_in_his_class

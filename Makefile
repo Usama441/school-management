@@ -11,7 +11,7 @@ all: run
 # Run the main Ruby file
 .PHONY: run
 run:
-	$(RUBY) run.rb
+	$(RUBY) teacher.rb
 
 # Install dependencies (if you have a Gemfile)
 .PHONY: install
