@@ -18,7 +18,9 @@ class ClassRooms < School
   
   def student_check(class_grade, new_student)
    
-    File.foreach("#{class_grade}.txt") do |line|
+    file_path = "classes/#{class_grade}/class.txt"
+
+    File.foreach(file_path) do |line|
       id, name, age, dob, grade = line.split(",").map(&:strip)
       @existing_student_list << { id: id, name: name, age: age, dob: dob, grade: grade }
     end
@@ -30,7 +32,7 @@ class ClassRooms < School
     if student_exists
       puts "Student #{new_student[:name]} already exists in #{class_grade}."
     else
-      File.open("#{class_grade}.txt", 'a') do |class_file|
+      File.open(file_path, 'a') do |class_file|
         class_file.puts "#{new_student[:id]}, #{new_student[:name]}"
       end
       puts "New student added: #{new_student[:name]}"
@@ -39,8 +41,12 @@ class ClassRooms < School
 
 
   def add_student_in_class
-    
-    File.foreach("students_data.txt") do |line|
+   
+    file_path = "students/students_data.txt"
+    directory = File.dirname(file_path)
+    FileUtils.mkdir_p directory 
+    #reading student data and storing  it into an hash tabel,
+    File.foreach(file_path) do |line|
       id, name, age, dob, grade = line.split(",").map(&:strip)
       @coming_student_list << { id: id, name: name, age: age, dob: dob, grade: grade }
     end
@@ -49,8 +55,12 @@ class ClassRooms < School
     class_name = gets.chomp.strip  
     class_found = false
 
+    #searching for class 
+    file_path = "classes/tottal_classes.txt"
+    directory = File.dirname(file_path)
+    FileUtils.mkdir_p directory 
     
-    File.foreach("tottal_classes.txt") do |line|
+    File.foreach(file_path) do |line|
       if line.strip == class_name
         class_found = true
 

@@ -37,8 +37,12 @@ class Student < Person
   end
 
   def store_info
-
-    File.open("students_data.txt","a") do |line|
+    
+    file_path = "students/students_data.txt"
+    directory = File.dirname(file_path)
+    FileUtils.mkdir_p directory 
+    
+    File.open(file_path,"a") do |line|
 
        line.puts "#{@roll_number},#{@name},#{@age},#{@date_of_birth},#{@grade}"
     

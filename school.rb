@@ -32,7 +32,7 @@ class School
     puts "Tottal student in our school : #{@students.size}"
   end
   def add_teacher
-
+    
     new_teacher = Teacher.new("name","DOB",00,"id")
     new_teacher.set_info
     new_teacher.store_info

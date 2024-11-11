@@ -57,9 +57,12 @@ class Teacher < Person
 
   def store_info
     
-    File.open("teachers_data.txt","a") do |line|
+    file_path = "teachers/teachers_data.txt"
+    directory = File.dirname(file_path)
+    FileUtils.mkdir_p directory 
+    File.open(file_path,"a") do |line|
       
-      line.puts "#{@teacher_id},#{@name},#{@age},#{@date_of_birth},#{@subjects.join(",")}"
+      line.puts "#{@teacher_id},#{@name},#{@age},#{@date_of_birth},#{@subjects}"
    
     end
  
