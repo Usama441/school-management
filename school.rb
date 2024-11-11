@@ -23,8 +23,10 @@ class School
   end
 
   def student_count 
+    
+    file_path = "students/students_data.txt"
 
-    File.foreach('students_data.txt') do |line|
+    File.foreach(file_path) do |line|
       id, name, age,dob,grade  = line.split(",")
       @students << { id: id, name: name, age: age.to_i, dob:dob, grade:grade}
       
@@ -32,7 +34,7 @@ class School
     puts "Tottal student in our school : #{@students.size}"
   end
   def add_teacher
-    
+
     new_teacher = Teacher.new("name","DOB",00,"id")
     new_teacher.set_info
     new_teacher.store_info

@@ -114,7 +114,9 @@ class ClassRooms < School
   def search_teacher (t_name,t_id,class_name)
     
     teacher_found = nil
-    File.foreach("teachers_data.txt") do |line|
+    file_path = "teachers/teachers_data.txt"
+   
+    File.foreach(file_path) do |line|
 
       id,name,age,dob,sub = line.split(",").map(&:strip)
 
@@ -149,17 +151,20 @@ class ClassRooms < School
     teacher_id = gets.chomp
     
     temp_arr = []
-
-    File.foreach("#{class_name}.txt") do |line|
+    
+    # storing the existing data od of class 
+    file_path = "classes/#{class_name}/class.txt"
+   
+    File.foreach(file_path) do |line|
+      
       id,name = line.split(",").map(&:strip)
-
       temp_arr << {id: id,name: name}
 
     end
     
     search_teacher(teacher_name,teacher_id,class_name)
 
-    File.open("#{class_name}.txt",'a') do |file|
+    File.open(file_path,'a') do |file|
       
       temp_arr.each do |student| 
       file.puts "#{student[:id]}, #{student[:name]}"
