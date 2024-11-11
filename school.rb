@@ -33,6 +33,7 @@ class School
     end
     puts "Tottal student in our school : #{@students.size}"
   end
+
   def add_teacher
 
     new_teacher = Teacher.new("name","DOB",00,"id")
@@ -52,8 +53,8 @@ class School
       #line.puts"~ WELLCOM TO #{class_name.upcase} CLASS ~"
     end
     
-    File.open("tottal_classes.txt",'a') do |line|
-
+    file_path = "classes/tottal_classes.txt"
+    File.open(file_path,'a') do |line|
       line.puts "#{class_name}"  
     end
 
