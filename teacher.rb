@@ -193,7 +193,6 @@ class Teacher < Person
    end
    
    student_count = ids.count { |s| s.start_with?("S")} + ids.count { |s| s.start_with?("F")}
-   teacher_count = ids.count {|s| s.start_with?("P")}  + ids.count { |s| s.start_with?("T")}
    puts "Tottal Students in class : #{student_count}"
 
   end
@@ -206,6 +205,6 @@ end
 
 
 
-teacher = Teacher.new("name", "date_of_birth", "age","teacher_id")
+#teacher = Teacher.new("name", "date_of_birth", "age","teacher_id")
 
-teacher.count_student_in_his_class
+#teacher.count_student_in_his_class
