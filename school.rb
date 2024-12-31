@@ -43,21 +43,28 @@ class School
   end
   
   def add_class_rooms
-
-    print "Enter the grade of class : "
+    print "Enter the grade of class: "
     class_name = gets.chomp
-    file_path = "classes/#{class_name}/class.txt"
-    directory = File.dirname(file_path)
-    FileUtils.mkdir_p directory
-    File.open(file_path,'w') do |line|
-      #line.puts"~ WELLCOM TO #{class_name.upcase} CLASS ~"
+  
+    print "Enter the Batch ID: "
+    batch_id = gets.chomp
+  
+    directory = "classes/#{class_name}th"
+    file_path = "#{directory}/#{batch_id}.txt"
+  
+    FileUtils.mkdir_p(directory) unless Dir.exist?(directory)
+  
+    File.open(file_path, 'w') do |file|
+      file.puts "~ WELCOME TO #{class_name.upcase} CLASS ~"
     end
-    
-    file_path = "classes/tottal_classes.txt"
-    File.open(file_path,'a') do |line|
-      line.puts "#{class_name}"  
+  
+    total_classes_file = 'classes/tottal_classes.txt'
+  
+    unless File.read(total_classes_file).include?("#{class_name}th")
+      File.open(total_classes_file, 'a') do |file|
+        file.puts "#{class_name}th"
+      end
     end
-
   end
 
 end

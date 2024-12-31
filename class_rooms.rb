@@ -27,15 +27,22 @@ class ClassRooms < School
 
     student_exists = @existing_student_list.any? do |existing_student|
       existing_student[:id] == new_student[:id] && existing_student[:name] == new_student[:name]
+      
     end
+
+  
 
     if student_exists
       puts "Student #{new_student[:name]} already exists in #{class_grade}."
     else
+      
       File.open(file_path, 'a') do |class_file|
         class_file.puts "#{new_student[:id]},#{new_student[:name]}"
+     
       end
+     
       puts "New student added: #{new_student[:name]}"
+    
     end
   end
 
