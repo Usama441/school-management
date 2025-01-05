@@ -48,21 +48,23 @@ class School
   
     print "Enter the Batch ID: "
     batch_id = gets.chomp
-  
-    directory = "classes/#{class_name}th"
-    file_path = "#{directory}/#{batch_id}.txt"
+    print "Summer or Fall batch "
+    batch_type = gets.chomp
+
+    directory = "classes/#{class_name}"
+    file_path = "#{directory}/#{batch_type}#{batch_id}.txt"
   
     FileUtils.mkdir_p(directory) unless Dir.exist?(directory)
   
     File.open(file_path, 'w') do |file|
-      file.puts "~ WELCOME TO #{class_name.upcase} CLASS ~"
+     
     end
   
     total_classes_file = 'classes/tottal_classes.txt'
   
-    unless File.read(total_classes_file).include?("#{class_name}th")
-      File.open(total_classes_file, 'a') do |file|
-        file.puts "#{class_name}th"
+   unless File.read(total_classes_file).include?("#{class_name}th")
+     File.open(total_classes_file, 'a') do |file|
+        file.puts "#{class_name}"
       end
     end
   end

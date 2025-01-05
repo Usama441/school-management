@@ -10,90 +10,99 @@ class ClassRooms < School
     
     @class_id = id
     @grade    = grade 
-    @existing_student_list = []
+    @student_in_class = []
     @coming_student_list = []
     @teacher = []
 
-  end
-  
-  def student_check(class_grade, new_student)
-   
-    file_path = "classes/#{class_grade}/class.txt"
+  end 
 
+  def student_check(class_grade, new_student, batch)
+    file_path = "classes/#{class_grade}/#{batch}.txt"
+  
+    # Ensure file exists
+    unless File.exist?(file_path)
+      FileUtils.mkdir_p(File.dirname(file_path))
+      File.write(file_path, "")
+    end
+  
+    # Clear @student_in_class and read existing students
+    @student_in_class = []
     File.foreach(file_path) do |line|
-      id, name, age, dob, grade = line.split(",").map(&:strip)
-      @existing_student_list << { id: id, name: name, age: age, dob: dob, grade: grade }
+      id, name = line.split(",").map(&:strip)
+      @student_in_class << { id: id, name: name }
     end
-
-    student_exists = @existing_student_list.any? do |existing_student|
-      existing_student[:id] == new_student[:id] && existing_student[:name] == new_student[:name]
-      
-    end
-
   
-
-    if student_exists
-      puts "Student #{new_student[:name]} already exists in #{class_grade}."
-    else
-      
+    # Check for existing student
+    student_exists = @student_in_class.any? do |existing_student|
+      existing_student[:id] == new_student[:id] && existing_student[:name] == new_student[:name]
+    end
+  
+    # Add new student if they don't exist
+    unless student_exists
       File.open(file_path, 'a') do |class_file|
         class_file.puts "#{new_student[:id]},#{new_student[:name]}"
-     
       end
-     
       puts "New student added: #{new_student[:name]}"
-    
+    else
+      puts "Student #{new_student[:name]} already exists in #{class_grade}."
     end
   end
-
-
+  
   def add_student_in_class
-   
     file_path = "students/students_data.txt"
-    directory = File.dirname(file_path)
-    FileUtils.mkdir_p directory 
-    #reading student data and storing  it into an hash tabel,
+    FileUtils.mkdir_p(File.dirname(file_path))
+  
+    # Read student data
+    @coming_student_list = []
     File.foreach(file_path) do |line|
       id, name, age, dob, grade = line.split(",").map(&:strip)
       @coming_student_list << { id: id, name: name, age: age, dob: dob, grade: grade }
     end
-
+  
+    # Prompt for class grade
     print "Enter the class grade: "
-    class_name = gets.chomp.strip  
-    class_found = false
-
-    #searching for class 
+    class_name = gets.chomp.strip
+  
+    # Check if class exists
     file_path = "classes/tottal_classes.txt"
-    directory = File.dirname(file_path)
-    FileUtils.mkdir_p directory 
-    
+    unless File.exist?(file_path)
+      puts "The classes list file is missing."
+      return
+    end
+  
+    class_found = false
     File.foreach(file_path) do |line|
       if line.strip == class_name
         class_found = true
-
+  
+        # Process each student
         @coming_student_list.each do |student|
           if student[:grade] == class_name
-               student_check(class_name, student)  
+            batch_id = student[:id]
+            batch = batch_id[0,5]
+            puts batch
+            student_check(class_name, student, batch)
           end
         end
-
+  
         puts "Students processed for the class: #{class_name}"
         break
       end
     end
-
   
+    # Handle missing class
     unless class_found
       puts "There is no such class that you are looking for."
       puts "Please take permission from the head office to create a new class."
     end
   end
   
-  def teacher_check(class_name,teacher_found)
+  
+  def teacher_check(class_name,teacher_found,batch_id)
     
     temp_arr = []
     
-    file_path = "classes/#{class_name}/class.txt"
+    file_path = "classes/#{class_name}/#{batch_id}.txt"
 
     File.foreach(file_path) do |line|
 
@@ -120,7 +129,7 @@ class ClassRooms < School
     end
   end 
 
-  def search_teacher (t_name,t_id,class_name)
+  def search_teacher (t_name,t_id,class_name,batch_id)
     
     teacher_found = nil
     file_path = "teachers/teachers_data.txt"
@@ -139,7 +148,7 @@ class ClassRooms < School
 
     if teacher_found
       
-      teacher_check(class_name,teacher_found)
+      teacher_check(class_name,teacher_found,batch_id)
   
     else
    
@@ -158,11 +167,12 @@ class ClassRooms < School
     teacher_name = gets.chomp 
     print 'Enter teacher id : '
     teacher_id = gets.chomp
-    
+    print 'Enter the batch '
+    batch_id = gets.chomp
     temp_arr = []
     
     # storing the existing data od of class 
-    file_path = "classes/#{class_name}/class.txt"
+    file_path = "classes/#{class_name}/#{batch_id}.txt"
    
     File.foreach(file_path) do |line|
       
@@ -171,7 +181,7 @@ class ClassRooms < School
 
     end
     
-    search_teacher(teacher_name,teacher_id,class_name)
+    search_teacher(teacher_name,teacher_id,class_name,batch_id)
 
     File.open(file_path,'a') do |file|
       
@@ -187,5 +197,4 @@ class ClassRooms < School
   
  
 end
-
 
